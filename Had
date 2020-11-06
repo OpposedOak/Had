@@ -1,4 +1,5 @@
 def vytvor_tabulku(vyska,sirka):
+    
     #Tvorba tabulky
     tabulka = []
     for i in range(vyska):
@@ -9,17 +10,21 @@ def vytvor_tabulku(vyska,sirka):
         
     return tabulka
 
-def nakresli_mapu(souradnice,tabulka):
+def nakresli_mapu(souradnice):
+    vyska = 10
+    sirka = 10
+    
+    tabulka = vytvor_tabulku(vyska,sirka)
 
     for prvek in souradnice:
         x,y = prvek
         tabulka[x][y] = "x"
         
-    for vnorena_tabulka in tabulka:
-        for prvek in vnorena_tabulka:
+    for tabulka_vnorena in tabulka:
+        for prvek in tabulka_vnorena:
             print(prvek, end=' ')
         print()
-    return tabulka
+
         
 def pohyb(souradnice,smer):
     x,y = souradnice [-1]
@@ -39,20 +44,17 @@ def pohyb(souradnice,smer):
     elif smer == "s":
         x_nove = x-1
         souradnice.append((x_nove,y)) 
-        
-    souradnice.remove(souradnice[0])
-    return souradnice
+   
+    del(souradnice[0])
+    
     
 def had():
     
-    vyska = 10
-    sirka = 10
-    souradnice = [(0,0)] 
-    tabulka = vytvor_tabulku(vyska,sirka) 
+    souradnice = [(0, 0), (1, 0), (2, 0)] 
     
     while True:
         smer = input("Zadej smer (s,j,v,z):") 
-        souradnice = pohyb(souradnice,smer)
-        nakresli_mapu(souradnice, tabulka)
+        pohyb(souradnice,smer)
+        nakresli_mapu(souradnice)
         
 had()
