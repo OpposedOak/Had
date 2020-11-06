@@ -1,5 +1,5 @@
 def vytvor_tabulku(vyska,sirka):
-    #Funkce vytvoří rtabulku podle zadané výšk a šířky
+    #Funkce vytvoří tabulku podle zadané výšk a šířky
     #Vstupní tabulka
     tabulka = []
     #Naplěnní tabulky
