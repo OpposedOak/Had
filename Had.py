@@ -1,5 +1,5 @@
 def vytvor_tabulku(vyska,sirka):
-    #Funkce vytvoří tabulku podle zadané výšk a šířky
+    #Funkce vytvoří rtabulku podle zadané výšk a šířky
     #Vstupní tabulka
     tabulka = []
     #Naplěnní tabulky
@@ -15,7 +15,7 @@ def nakresli_mapu(souradnice):
     #Funkce přepíše prvek podle zvolené souřadnice a vykreslí tabulku
     #Vytvoření tabulky
     tabulka = vytvor_tabulku(vyska,sirka)
-    #Přepsání prvku . za x
+    #Přepsání prvku "." za "x"
     for prvek in souradnice:
         x,y = prvek
         tabulka[x][y] = "x"
@@ -45,8 +45,11 @@ def pohyb(souradnice,smer):
     elif smer == "s":
         x_nove = x-1
         souradnice.append((x_nove,y))
+
     
-    print(souradnice) 
+    #Ochrana proti nabourani do těla
+    if len(souradnice) != len(set(souradnice)):
+        raise ValueError("Game over")
     
     #Ochrana proti narazu do zdi sever, zapad
     if souradnice [-1][0] < 0 or souradnice [-1][1] < 0 :
@@ -54,8 +57,9 @@ def pohyb(souradnice,smer):
         
     #Ochrana proti narazu do zdi jih východ 
     elif souradnice [-1][0] >= vyska or souradnice [-1][1] >= sirka: 
-         raise ValueError("Game Over")    
-    #Vymazání prní souřadnice   
+         raise ValueError("Game Over") 
+        
+   #Vymazání první souřadnice   
     del(souradnice[0])
     
     
