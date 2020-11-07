@@ -1,3 +1,6 @@
+import random as rd
+from itertools import chain
+
 def vytvor_tabulku(vyska,sirka):
     #Funkce vytvoří rtabulku podle zadané výšk a šířky
     #Vstupní tabulka
@@ -11,14 +14,27 @@ def vytvor_tabulku(vyska,sirka):
         
     return tabulka
 
-def nakresli_mapu(souradnice):
-    #Funkce přepíše prvek podle zvolené souřadnice a vykreslí tabulku
+def nakresli_mapu(souradnice,seznam_ovoce):
+    #Funkce přepíše prvek podle zvolených souřadnic a vykreslí tabulku
     #Vytvoření tabulky
     tabulka = vytvor_tabulku(vyska,sirka)
+
     #Přepsání prvku "." za "x"
     for prvek in souradnice:
         x,y = prvek
         tabulka[x][y] = "x"
+        
+    #Přepsání prvku "." za "o"
+    for prvek in seznam_ovoce:
+        x,y = prvek
+        tabulka[x][y] = "o" 
+        
+    #Vytvoreni ovoce
+    if "o" not in chain(*tabulka): 
+        seznam_ovoce = ovoce(tabulka)
+    else:
+        pass
+        
     #Vykreslení tabulky    
     for tabulka_vnorena in tabulka:
         for prvek in tabulka_vnorena:
@@ -26,7 +42,8 @@ def nakresli_mapu(souradnice):
         print()
 
         
-def pohyb(souradnice,smer):
+def pohyb(souradnice,smer,seznam_ovoce):
+    
     #Přiřazení souřadnic
     x,y = souradnice [-1]
     #Tah na východ
@@ -58,23 +75,53 @@ def pohyb(souradnice,smer):
     #Ochrana proti narazu do zdi jih východ 
     elif souradnice [-1][0] >= vyska or souradnice [-1][1] >= sirka: 
          raise ValueError("Game Over") 
+    #Kontrola požrání     
+    pozrani = set(seznam_ovoce) & set(souradnice) 
+    print(pozrani)
+    print(souradnice)
+    print(seznam_ovoce)
+   #Zachování delky při požrání
+    if len(pozrani) == 0: 
+        del(souradnice[0])
+    else:
+        del(seznam_ovoce[0])
         
-   #Vymazání první souřadnice   
-    del(souradnice[0])
+    
+    
+    
+def ovoce(tabulka):
+
+    while True:
+        
+        souradnice_x =rd.randrange(0,sirka-1)
+        souradnice_y= rd.randrange(0,vyska-1)
+        
+        if tabulka[souradnice_x][souradnice_y] == "x":
+            continue
+        else:
+            seznam_ovoce.append((souradnice_x,souradnice_y))
+            break
+       
+    return seznam_ovoce
+    
     
     
 def had():
-    global sirka,vyska
+    global sirka,vyska,seznam_ovoce
     #Výchozí souřadnice
     souradnice = [(0, 0), (1, 0), (2, 0)] 
     #Rozměry pole
     vyska = 10
     sirka = 10
+    #Souradnice ovoce
+    seznam_ovoce = [(2,3)]
+    
+    
 
     
     while True:
         smer = input("Zadej smer (s,j,v,z):") 
-        pohyb(souradnice,smer)
-        nakresli_mapu(souradnice)
+        pohyb(souradnice,smer,seznam_ovoce)
+        nakresli_mapu(souradnice,seznam_ovoce)
         
 had()
