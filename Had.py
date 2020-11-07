@@ -44,22 +44,25 @@ def nakresli_mapu(souradnice,seznam_ovoce,kolo):
             print(prvek, end=' ')
         print()
 
-
 def pohyb(souradnice,smer,seznam_ovoce):
     #Přiřazení souřadnic
     x,y = souradnice [-1]
+    
     #Tah na východ
     if smer == "v":
         y_nove = y+1
         souradnice.append((x,y_nove))
+        
     #Tah na západ
     elif smer == "z":
         y_nove = y-1
         souradnice.append((x,y_nove))
+        
     #Tah na jih   
     elif smer == "j":
         x_nove = x+1
         souradnice.append((x_nove,y))
+        
     #Tah na sever   
     elif smer == "s":
         x_nove = x-1
@@ -89,7 +92,7 @@ def ovoce(tabulka):
     while True:
         souradnice_x =rd.randrange(0,sirka-1)
         souradnice_y= rd.randrange(0,vyska-1)
-        
+        #Vytvoření náhodné pozice ovoce
         if tabulka[souradnice_x][souradnice_y] == "x":
             continue
         else:
