@@ -2,10 +2,10 @@ import random as rd
 from itertools import chain
 
 def vytvor_tabulku(vyska,sirka):
-    #Funkce vytvoří rtabulku podle zadané výšk a šířky
+    #Funkce vytvoří tabulku podle zadané výšky a šířky
     #Vstupní tabulka
     tabulka = []
-    #Naplěnní tabulky
+    #Naplnění tabulky
     for i in range(vyska):
         tabulka_vnorena = []
         for b in range(sirka):
@@ -35,8 +35,6 @@ def nakresli_mapu(souradnice,seznam_ovoce,kolo):
      #Vytvoření ovoe ve 30 kole   
     if kolo == 30:
         seznam_ovoce = ovoce(tabulka)
-        
-        
     else:
         pass
     print(kolo)   
@@ -48,7 +46,6 @@ def nakresli_mapu(souradnice,seznam_ovoce,kolo):
 
 
 def pohyb(souradnice,smer,seznam_ovoce):
-    
     #Přiřazení souřadnic
     x,y = souradnice [-1]
     #Tah na východ
@@ -89,9 +86,7 @@ def pohyb(souradnice,smer,seznam_ovoce):
         del(seznam_ovoce[0])
         
 def ovoce(tabulka):
-
     while True:
-        
         souradnice_x =rd.randrange(0,sirka-1)
         souradnice_y= rd.randrange(0,vyska-1)
         
@@ -102,7 +97,6 @@ def ovoce(tabulka):
             break
        
     return seznam_ovoce
-    
 
 def had():
     global sirka,vyska,seznam_ovoce,kolo
@@ -123,6 +117,5 @@ def had():
             kolo = 0
         pohyb(souradnice,smer,seznam_ovoce)
         nakresli_mapu(souradnice,seznam_ovoce,kolo)
-
 
 had()
