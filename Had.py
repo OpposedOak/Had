@@ -14,7 +14,7 @@ def vytvor_tabulku(vyska,sirka):
         
     return tabulka
 
-def nakresli_mapu(souradnice,seznam_ovoce):
+def nakresli_mapu(souradnice,seznam_ovoce,kolo):
     #Funkce přepíše prvek podle zvolených souřadnic a vykreslí tabulku
     #Vytvoření tabulky
     tabulka = vytvor_tabulku(vyska,sirka)
@@ -32,16 +32,21 @@ def nakresli_mapu(souradnice,seznam_ovoce):
     #Vytvoreni ovoce
     if "o" not in chain(*tabulka): 
         seznam_ovoce = ovoce(tabulka)
+     #Vytvoření ovoe ve 30 kole   
+    if kolo == 30:
+        seznam_ovoce = ovoce(tabulka)
+        
+        
     else:
         pass
-        
+    print(kolo)   
     #Vykreslení tabulky    
     for tabulka_vnorena in tabulka:
         for prvek in tabulka_vnorena:
             print(prvek, end=' ')
         print()
 
-        
+
 def pohyb(souradnice,smer,seznam_ovoce):
     
     #Přiřazení souřadnic
@@ -63,7 +68,6 @@ def pohyb(souradnice,smer,seznam_ovoce):
         x_nove = x-1
         souradnice.append((x_nove,y))
 
-    
     #Ochrana proti nabourani do těla
     if len(souradnice) != len(set(souradnice)):
         raise ValueError("Game over")
@@ -77,18 +81,13 @@ def pohyb(souradnice,smer,seznam_ovoce):
          raise ValueError("Game Over") 
     #Kontrola požrání     
     pozrani = set(seznam_ovoce) & set(souradnice) 
-    print(pozrani)
-    print(souradnice)
-    print(seznam_ovoce)
+
    #Zachování delky při požrání
     if len(pozrani) == 0: 
         del(souradnice[0])
     else:
         del(seznam_ovoce[0])
         
-    
-    
-    
 def ovoce(tabulka):
 
     while True:
@@ -104,24 +103,26 @@ def ovoce(tabulka):
        
     return seznam_ovoce
     
-    
-    
+
 def had():
-    global sirka,vyska,seznam_ovoce
+    global sirka,vyska,seznam_ovoce,kolo
     #Výchozí souřadnice
     souradnice = [(0, 0), (1, 0), (2, 0)] 
     #Rozměry pole
     vyska = 10
     sirka = 10
+    #Počítadlo kol
+    kolo = 0
     #Souradnice ovoce
     seznam_ovoce = [(2,3)]
-    
-    
 
-    
     while True:
-        smer = input("Zadej smer (s,j,v,z):") 
+        smer = input("Zadej smer (s,j,v,z):")
+        kolo = kolo + 1
+        if kolo > 30:
+            kolo = 0
         pohyb(souradnice,smer,seznam_ovoce)
-        nakresli_mapu(souradnice,seznam_ovoce)
-        
+        nakresli_mapu(souradnice,seznam_ovoce,kolo)
+
+
 had()
