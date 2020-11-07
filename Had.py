@@ -2,10 +2,10 @@ import random as rd
 from itertools import chain
 
 def vytvor_tabulku(vyska,sirka):
-    #Funkce vytvoří tabulku podle zadané výšky a šířky
+    #Funkce vytvoří rtabulku podle zadané výšk a šířky
     #Vstupní tabulka
     tabulka = []
-    #Naplnění tabulky
+    #Naplěnní tabulky
     for i in range(vyska):
         tabulka_vnorena = []
         for b in range(sirka):
@@ -35,6 +35,7 @@ def nakresli_mapu(souradnice,seznam_ovoce,kolo):
      #Vytvoření ovoe ve 30 kole   
     if kolo == 30:
         seznam_ovoce = ovoce(tabulka)
+    
     else:
         pass
     print(kolo)   
@@ -47,22 +48,18 @@ def nakresli_mapu(souradnice,seznam_ovoce,kolo):
 def pohyb(souradnice,smer,seznam_ovoce):
     #Přiřazení souřadnic
     x,y = souradnice [-1]
-    
     #Tah na východ
     if smer == "v":
         y_nove = y+1
         souradnice.append((x,y_nove))
-        
     #Tah na západ
     elif smer == "z":
         y_nove = y-1
         souradnice.append((x,y_nove))
-        
     #Tah na jih   
     elif smer == "j":
         x_nove = x+1
         souradnice.append((x_nove,y))
-        
     #Tah na sever   
     elif smer == "s":
         x_nove = x-1
@@ -90,9 +87,10 @@ def pohyb(souradnice,smer,seznam_ovoce):
         
 def ovoce(tabulka):
     while True:
+        
         souradnice_x =rd.randrange(0,sirka-1)
         souradnice_y= rd.randrange(0,vyska-1)
-        #Vytvoření náhodné pozice ovoce
+        
         if tabulka[souradnice_x][souradnice_y] == "x":
             continue
         else:
@@ -100,6 +98,7 @@ def ovoce(tabulka):
             break
        
     return seznam_ovoce
+    
 
 def had():
     global sirka,vyska,seznam_ovoce,kolo
@@ -110,11 +109,18 @@ def had():
     sirka = 10
     #Počítadlo kol
     kolo = 0
+    
     #Souradnice ovoce
     seznam_ovoce = [(2,3)]
 
     while True:
-        smer = input("Zadej smer (s,j,v,z):")
+        while True:
+            smer = input("Zadej smer (s,j,v,z):")
+            if smer == "v" or smer == "z" or smer == "s" or smer == "j":
+                break
+            else:
+                continue
+          
         kolo = kolo + 1
         if kolo > 30:
             kolo = 0
